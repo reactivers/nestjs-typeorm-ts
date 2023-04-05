@@ -1,0 +1,31 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:12
+    restart: always
+    container_name: reactivers-postgres
+    ports:
+      - "5442:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  node:
+    restart: always
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    build:
+      context: ./
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "4011:3000"
+    container_name: reactivers-backend
+volumes:
+  postgres-data:
