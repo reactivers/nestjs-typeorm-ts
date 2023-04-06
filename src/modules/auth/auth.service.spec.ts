@@ -29,10 +29,8 @@ describe("AuthService", () => {
       expect(response.lastName).toEqual(testUser.lastName);
       expect(response.id).toBeDefined();
       validUser = response;
-      // This line is disabled to make sure the password is undefined!
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      expect(response.password).toBeUndefined();
+      // This line is to make sure the password is undefined!
+      expect(response["password"]).toBeUndefined();
     });
     it("should return the validated user", async () => {
       const response = await authService.validateUser(

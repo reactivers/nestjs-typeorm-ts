@@ -12,6 +12,8 @@ export class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  // Id is used as unique identifier
+  // for
   @Column({ unique: true })
   username: string;
 

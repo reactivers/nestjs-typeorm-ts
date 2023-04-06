@@ -1,3 +1,4 @@
+import { IsNotEmpty } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 // Created for preventing to send password in respose
@@ -7,5 +8,6 @@ export class Password {
   id: string;
 
   @Column()
+  @IsNotEmpty()
   password: string;
 }

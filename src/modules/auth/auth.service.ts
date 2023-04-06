@@ -31,16 +31,15 @@ export class AuthService {
       where: { username },
       relations: { password: true },
     });
-    if (!user) throw Error("Username or password is not correct");
+    if (!user) throw Error("Username or password is incorrect!");
     const isMatch = await bcrypt.compare(password, user?.password?.password);
-    if (!isMatch) throw Error("Username or password is not correct");
+    if (!isMatch) throw Error("Username or password is incorrect");
     delete user["password"];
     return user;
   }
 
   login(user: UserDto): string {
-    const payload = { ...user };
-    return this.jwtService.sign(payload);
+    return this.jwtService.sign({ ...user });
   }
 
   async signup(data: SignUpUserDto): Promise<SignUpResponseUserDto> {

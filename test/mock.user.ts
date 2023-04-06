@@ -1,10 +1,10 @@
 import { SignUpUserDto } from "src/types/user.type";
 
 export const testUser: SignUpUserDto = {
-  username: "muratguney",
-  firstName: "Murat",
-  lastName: "Guney",
-  password: "123",
+  username: "reactivers",
+  firstName: "Reactivers",
+  lastName: "Reactivers",
+  password: "Reactivers",
 };
 
 export const invalidUsers: SignUpUserDto[] = [
@@ -15,21 +15,21 @@ export const invalidUsers: SignUpUserDto[] = [
     password: "",
   },
   {
-    username: "muratguney",
+    username: "reactivers",
     firstName: "",
     lastName: "",
     password: "",
   },
   {
-    username: "muratguney",
-    firstName: "Murat",
+    username: "reactivers",
+    firstName: "Reactivers",
     lastName: "",
     password: "",
   },
   {
-    username: "muratguney",
-    firstName: "Murat",
-    lastName: "Guney",
+    username: "reactivers",
+    firstName: "Reactivers",
+    lastName: "reactivers",
     password: "",
   },
 ];

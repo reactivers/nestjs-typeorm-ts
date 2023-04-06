@@ -6,7 +6,7 @@ import { AppResponse } from "src/types/common.type";
 import { SignUpResponseUserDto, UserDto } from "src/types/user.type";
 import * as request from "supertest";
 import { createDataSource } from "../src/data-source";
-import { JwtAuthGuard } from "../src/modules/auth/auth-guard/jwt-auth.guard";
+import { JwtAuthGuard } from "../src/guards/jwt/jwt-auth.guard";
 import { AppModule } from "./../src/app.module";
 import { invalidUsers, testUser } from "./mock.user";
 
@@ -31,12 +31,12 @@ describe("AppController (e2e)", () => {
   });
 
   describe("When an unauthenticated user", () => {
-    describe("Send requests to the protected pages they should return 401", () => {
+    describe("Attempt to send requests the protected pages, should return 401", () => {
       it("(GET) /user/profile", () => {
         return request(server).get("/user/profile").expect(401);
       });
     });
-    describe("Attempt to signup and signin the should return success", () => {
+    describe("Attempt to signup and signin, should return success", () => {
       it("(POST) /auth/signup", async () => {
         const response = await request(server)
           .post("/auth/signup")
@@ -55,7 +55,7 @@ describe("AppController (e2e)", () => {
         token = body.data.token;
       });
     });
-    describe("Attempt to signin with the wrong parameters should return 401", () => {
+    describe("Attempt to signin with the wrong parameters, should return 401", () => {
       it("(POST) /auth/signin", () => {
         return request(server)
           .post("/auth/signin")
@@ -65,7 +65,7 @@ describe("AppController (e2e)", () => {
     });
   });
   describe("When an authenticated user", () => {
-    describe("attempt to get the profile should return the user profile", () => {
+    describe("Attempt to get the profile, should return the user profile", () => {
       it("(GET) /user/profile", async () => {
         const response = await request(server)
           .get("/user/profile")
@@ -78,10 +78,8 @@ describe("AppController (e2e)", () => {
         expect(responseUser.username).toEqual(user.username);
         expect(responseUser.firstName).toEqual(user.firstName);
         expect(responseUser.lastName).toEqual(user.lastName);
-        // This line is ignored to make sure the password is undefined!
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        expect(responseUser.password).toBeUndefined();
+        // This line is to make sure the password is undefined!
+        expect(responseUser["password"]).toBeUndefined();
       });
     });
   });
