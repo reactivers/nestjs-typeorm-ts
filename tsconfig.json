@@ -9,7 +9,17 @@
     "target": "es2017",
     "outDir": "./dist",
     "baseUrl": "./",
+    "rootDir": "./",
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
     "skipLibCheck": true
   },
-  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
+  "include": ["/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

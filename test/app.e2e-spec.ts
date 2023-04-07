@@ -44,7 +44,11 @@ describe("AppController (e2e)", () => {
           .expect(201);
 
         const body: AppResponse<SignUpResponseUserDto> = response.body;
-        user = body.data;
+        expect(body.data?.id).toBeDefined();
+        expect(body.data?.username).toBeDefined();
+        expect(body.data?.firstName).toBeDefined();
+        expect(body.data?.lastName).toBeDefined();
+        if (body.data) user = body.data;
       });
       it("(POST) /auth/signin", async () => {
         const response = await request(server)
@@ -52,7 +56,8 @@ describe("AppController (e2e)", () => {
           .send(testUser)
           .expect(201);
         const body: AppResponse<ILoginResponse> = response.body;
-        token = body.data.token;
+        expect(body.data?.token).toBeDefined();
+        if (body.data?.token) token = body.data.token;
       });
     });
     describe("Attempt to signin with the wrong parameters, should return 401", () => {
@@ -74,12 +79,12 @@ describe("AppController (e2e)", () => {
         const body = response.body as AppResponse<UserDto>;
         const responseUser = body.data;
 
-        expect(responseUser.id).toEqual(user.id);
-        expect(responseUser.username).toEqual(user.username);
-        expect(responseUser.firstName).toEqual(user.firstName);
-        expect(responseUser.lastName).toEqual(user.lastName);
+        expect(responseUser?.id).toEqual(user.id);
+        expect(responseUser?.username).toEqual(user.username);
+        expect(responseUser?.firstName).toEqual(user.firstName);
+        expect(responseUser?.lastName).toEqual(user.lastName);
         // This line is to make sure the password is undefined!
-        expect(responseUser["password"]).toBeUndefined();
+        expect((responseUser as never)["password"]).toBeUndefined();
       });
     });
   });

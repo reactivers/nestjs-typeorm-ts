@@ -34,7 +34,7 @@ export class AuthService {
     if (!user) throw Error("Username or password is incorrect!");
     const isMatch = await bcrypt.compare(password, user?.password?.password);
     if (!isMatch) throw Error("Username or password is incorrect");
-    delete user["password"];
+    delete (user as never)["password"];
     return user;
   }
 

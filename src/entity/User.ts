@@ -13,7 +13,7 @@ export class User {
   id: string;
 
   // Id is used as unique identifier
-  // for
+  // for possible changing username feature
   @Column({ unique: true })
   username: string;
 

@@ -6,7 +6,7 @@ import { UserService } from "./user.service";
 
 describe("UserService", () => {
   let userService: UserService;
-  let user: SignUpResponseUserDto = null;
+  let user: SignUpResponseUserDto;
 
   beforeAll(async () => {
     await createDataSource();

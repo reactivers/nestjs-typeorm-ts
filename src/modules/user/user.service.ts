@@ -24,7 +24,7 @@ export class UserService {
     const userRepository = AppDataSource.getRepository(User);
     const user = await userRepository.findOneBy({ username });
     if (!user) throw Error("User not found!");
-    delete user["password"];
+    delete (user as never)["password"];
     return user;
   }
 
@@ -44,7 +44,7 @@ export class UserService {
     password.password = await bcrypt.hash(data.password, saltOrRounds);
     user.password = password;
     const savedUser = await userRepository.save(user);
-    delete savedUser["password"];
+    delete (savedUser as never)["password"];
     return savedUser;
   }
 }

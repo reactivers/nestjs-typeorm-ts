@@ -30,7 +30,7 @@ describe("AuthService", () => {
       expect(response.id).toBeDefined();
       validUser = response;
       // This line is to make sure the password is undefined!
-      expect(response["password"]).toBeUndefined();
+      expect((response as never)["password"]).toBeUndefined();
     });
     it("should return the validated user", async () => {
       const response = await authService.validateUser(
