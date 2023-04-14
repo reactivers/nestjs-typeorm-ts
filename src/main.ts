@@ -9,7 +9,9 @@ async function bootstrap() {
   try {
     const app = await NestFactory.create(AppModule);
     await createDataSource();
+    app.enableCors();
     app.useGlobalPipes(new ValidationPipe());
+    app.setGlobalPrefix("api");
     initGuards(app);
     setupSwagger(app);
     await app.listen(3000);
